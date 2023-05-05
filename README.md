@@ -5,6 +5,9 @@
   - terraform
   
 
+
+
+
 # terraform-k8s
 
 - Deploy namespace, secrets, persistent volume, persistent volume claim, postgres db, service to access db.
@@ -51,14 +54,17 @@ kubectl get pods
 - get the service to find out the port that the service is listening on:
 
 ```bash
-kubectl get service db-service -o yaml
+kubectl get service 
+NAME                          TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+postgres-service-pnjetl-dev   NodePort   10.107.157.104   <none>        5432:30926/TCP   7m21s
+
 
 ```
 
 - get db pod/deployment name and do port forwarding of the nodeport () to the db servers internal listening port
 
 ```bash
-kubectl port-forward etl-db --address 0.0.0.0 31752:5432
+kubectl port-forward postgres-pnjetl-dev --address 0.0.0.0 30926:5432
 ```
 
 - If there are problems confirm the config is correct:
